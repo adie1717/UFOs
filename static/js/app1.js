@@ -24,19 +24,33 @@ function buildTable(data) {
 }
 
 // 1. Create a variable to keep track of all the filters as an object.
-let filteredData = "";
+var filteredData = {};
 
 // 3. Use this function to update the filters. 
 function updateFilters() {
-  filteredData = filterData.filter (ufoSighting => ufoSighting.key === value)
+  let changedElement = d3.select(this);
+  
+  let elementValue = changesEelemt.property("value");
+  console.log(elementValue);
 
+  let filterID = changedElement.attr("id");
+  console.log(filterId);
+
+  if(elementValue) {
+    filters[filterId] = elementValue;
+  }
+  else {
+    delete filters[filterId];
+  }
+
+  updateTable();
+}
 
     // 4a. Save the element that was changed as a variable.
-    var city = d3.select("city")
-    let filteredData = tableData;
+    d3.selectAll("input").on("change", updateFilters);
 
     // 4b. Save the value that was changed as a variable.
-  
+
     // 4c. Save the id of the filter that was changed as a variable.
 
   
@@ -57,11 +71,16 @@ function updateFilters() {
   
     // 9. Loop through all of the filters and keep any data that
     // matches the filter values
-    
+    Object.values(dataRow).forEach((val) => {
+      let cell = row.append("td);
+      cell.text(val);
+    });
+  });
+}
   
     // 10. Finally, rebuild the table using the filtered data
-    
-  }
+    function updateTable()
+  
   
   // 2. Attach an event to listen for changes to each filter
   
